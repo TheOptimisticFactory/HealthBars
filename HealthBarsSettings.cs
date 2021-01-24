@@ -8,7 +8,7 @@ namespace HealthBars
     {
         public HealthBarsSettings()
         {
-            Enable = new ToggleNode(false);
+            Enable = new ToggleNode(true);
             ShowInTown = new ToggleNode(false);
             ShowES = new ToggleNode(true);
             ShowEnemies = new ToggleNode(true);
