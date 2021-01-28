@@ -120,31 +120,36 @@ namespace HealthBars
             {
                 if (entity.IsHostile)
                 {
-                    switch (entity.GetComponent<ObjectMagicProperties>().Rarity)
+                    var objectMagicProperties = entity.GetComponent<ObjectMagicProperties>();
+
+                    if (objectMagicProperties != null)
                     {
-                        case MonsterRarity.White:
-                            Type = CreatureType.Normal;
-                            Settings = settings.NormalEnemy;
-                            break;
+                        switch (objectMagicProperties.Rarity)
+                        {
+                            case MonsterRarity.White:
+                                Type = CreatureType.Normal;
+                                Settings = settings.NormalEnemy;
+                                break;
 
-                        case MonsterRarity.Magic:
-                            Type = CreatureType.Magic;
-                            Settings = settings.MagicEnemy;
-                            break;
+                            case MonsterRarity.Magic:
+                                Type = CreatureType.Magic;
+                                Settings = settings.MagicEnemy;
+                                break;
 
-                        case MonsterRarity.Rare:
-                            Settings = settings.RareEnemy;
-                            Type = CreatureType.Rare;
-                            break;
+                            case MonsterRarity.Rare:
+                                Settings = settings.RareEnemy;
+                                Type = CreatureType.Rare;
+                                break;
 
-                        case MonsterRarity.Unique:
-                            Settings = settings.UniqueEnemy;
-                            Type = CreatureType.Unique;
-                            break;
-                        default:
-                            Settings = settings.Minions;
-                            Type = CreatureType.Minion;
-                            break;
+                            case MonsterRarity.Unique:
+                                Settings = settings.UniqueEnemy;
+                                Type = CreatureType.Unique;
+                                break;
+                            default:
+                                Settings = settings.Minions;
+                                Type = CreatureType.Minion;
+                                break;
+                        }
                     }
                 }
                 else
