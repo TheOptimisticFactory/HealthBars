@@ -35,7 +35,7 @@ namespace HealthBars
         public bool CanNotDie;
         public double DiedFrames = 0;
         private bool isHostile;
-        private readonly Action OnHostileChange = delegate { };
+        private readonly Action OnHostileChange;
         public bool Skip = false;
 
         public HealthBar(Entity entity, HealthBarsSettings settings)
@@ -52,10 +52,20 @@ namespace HealthBars
                     return;
             }
 
+            if (Entity.Path.StartsWith("Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskBurrowingViper")
+                && (Entity.Rarity != MonsterRarity.Unique))
+            {
+                return;
+            }
+
             Update(entity, settings);
 
-            //CanNotDie = entity.GetComponent<Stats>().StatDictionary.ContainsKey(GameStat.CannotDie);
-            CanNotDie = entity.Path.StartsWith("Metadata/Monsters/Totems/Labyrinth");
+            var _canNotDie = entity?.GetComponent<Stats>()?.StatDictionary?.ContainsKey(GameStat.CannotDie);
+
+            if (_canNotDie == null)
+                CanNotDie = entity.Path.StartsWith("Metadata/Monsters/Totems/Labyrinth");
+            else
+                CanNotDie = (bool)_canNotDie;
 
             if (entity.HasComponent<ObjectMagicProperties>())
             {

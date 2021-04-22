@@ -317,7 +317,6 @@ namespace HealthBars
 
             if (Entity.HasComponent<Life>() && Entity.GetComponent<Life>() != null && !Entity.IsAlive) return;
             if (IgnoredEntities.Any(x => Entity.Path.StartsWith(x))) return;
-            if (Entity.Path.StartsWith("Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskBurrowingViper") && (Entity.Rarity != MonsterRarity.Unique)) return;
             Entity.SetHudComponent(new HealthBar(Entity, Settings));
         }
     }
