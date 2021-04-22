@@ -18,142 +18,8 @@ namespace HealthBars
         private Camera camera;
         private bool CanTick = true;
         private readonly List<Element> ElementForSkip = new List<Element>();
-        private const string IGNORE_FILE = "IgnoredEntities.txt";
-        private List<string> IgnoredSum;
-
-        private readonly List<string> Ignored = new List<string>
-        {
-            // Delirium Ignores
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonEyes1",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonEyes2",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonEyes3",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonSpikes",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonSpikes2",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonSpikes3",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonPimple1",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonPimple2",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonPimple3",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonGoatFillet1Vanish",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonGoatFillet2Vanish",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonGoatRhoa1Vanish",
-            "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonGoatRhoa2Vanish",
-            
-            // Conquerors Ignores
-            "Metadata/Monsters/AtlasExiles/AtlasExile1@",
-            "Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderArcaneRune",
-            "Metadata/Monsters/AtlasExiles/AtlasExile2_",
-            "Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieFrostnadoDaemon",
-            "Metadata/Monsters/AtlasExiles/AtlasExile3@",
-            "Metadata/Monsters/AtlasExiles/AtlasExile3AcidPitDaemon",
-            "Metadata/Monsters/AtlasExiles/AtlasExile3BurrowingViperMelee",
-            "Metadata/Monsters/AtlasExiles/AtlasExile3BurrowingViperRanged",
-            "Metadata/Monsters/AtlasExiles/AtlasExile4@",
-            "Metadata/Monsters/AtlasExiles/AtlasExile4ApparitionCascade",
-            "Metadata/Monsters/AtlasExiles/AtlasExile5Apparition",
-            "Metadata/Monsters/AtlasExiles/AtlasExile5Throne",
-
-            // Incursion Ignores
-            "Metadata/Monsters/LeagueIncursion/VaalSaucerRoomTurret",
-            "Metadata/Monsters/LeagueIncursion/VaalSaucerTurret",
-            "Metadata/Monsters/LeagueIncursion/VaalSaucerTurret",
-            
-            // Betrayal Ignores
-            "Metadata/Monsters/LeagueBetrayal/BetrayalTaserNet",
-            "Metadata/Monsters/LeagueBetrayal/FortTurret/FortTurret1Safehouse",
-            "Metadata/Monsters/LeagueBetrayal/FortTurret/FortTurret1",
-            "Metadata/Monsters/LeagueBetrayal/MasterNinjaCop",
-            "Metadata/Monsters/LeagueBetrayal/BetrayalRikerMortarDaemon",
-            "Metadata/Monsters/LeagueBetrayal/BetrayalBoneNovaDaemon",
-            "Metadata/Monsters/LeagueBetrayal/BetrayalCatarinaPillarDaemon_",
-            "Metadata/Monsters/LeagueBetrayal/BetrayalUpgrades/BetrayalDaemonCorpseConsume",
-            
-            // Legion Ignores
-            "Metadata/Monsters/LegionLeague/LegionVaalGeneralProjectileDaemon",
-            "Metadata/Monsters/LegionLeague/LegionSergeantStampedeDaemon",
-            "Metadata/Monsters/LegionLeague/LegionSandTornadoDaemon",
-
-            // Random Ignores
-            "Metadata/Monsters/InvisibleFire/InvisibleSandstorm_",
-            "Metadata/Monsters/InvisibleFire/InvisibleFrostnado",
-            "Metadata/Monsters/InvisibleFire/InvisibleFireAfflictionDemonColdDegen",
-            "Metadata/Monsters/InvisibleFire/InvisibleFireAfflictionDemonColdDegenUnique",
-            "Metadata/Monsters/InvisibleFire/InvisibleFireAfflictionCorpseDegen",
-            "Metadata/Monsters/InvisibleFire/InvisibleFireEyrieHurricane",
-            "Metadata/Monsters/InvisibleFire/InvisibleIonCannonFrost",
-            "Metadata/Monsters/InvisibleFire/AfflictionBossFinalDeathZone",
-            "Metadata/Monsters/InvisibleFire/InvisibleFireDoedreSewers",
-            "Metadata/Monsters/InvisibleFire/InvisibleFireDelveFlameTornadoSpiked",
-            "Metadata/Monsters/InvisibleFire/InvisibleHolyCannon",
-            "Metadata/Monsters/InvisibleFire/DelveVaalBossInvisibleLight",
-
-            "Metadata/Monsters/InvisibleCurse/InvisibleFrostbiteStationary",
-            "Metadata/Monsters/InvisibleCurse/InvisibleConductivityStationary",
-            "Metadata/Monsters/InvisibleCurse/InvisibleEnfeeble",
-
-            "Metadata/Monsters/InvisibleAura/InvisibleWrathStationary",
-
-            // "Metadata/Monsters/Labyrinth/GoddessOfJustice",
-            // "Metadata/Monsters/Labyrinth/GoddessOfJusticeMapBoss",
-            "Metadata/Monsters/Frog/FrogGod/SilverOrb",
-            "Metadata/Monsters/Frog/FrogGod/SilverPool",
-            "Metadata/Monsters/LunarisSolaris/SolarisCelestialFormAmbushUniqueMap",
-            "Metadata/Monsters/Invisible/MaligaroSoulInvisibleBladeVortex",
-            "Metadata/Monsters/Daemon",
-            "Metadata/Monsters/Daemon/MaligaroBladeVortexDaemon",
-            "Metadata/Monsters/Daemon/SilverPoolChillDaemon",
-            "Metadata/Monsters/AvariusCasticus/AvariusCasticusStatue",
-            "Metadata/Monsters/Maligaro/MaligaroDesecrate",
-
-            "Metadata/Monsters/Avatar/AvatarMagmaOrbDaemon",
-            "Metadata/Monsters/Monkeys/FlameBearerTalismanT2Ghost",
-            "Metadata/Monsters/Totems/TalismanTotem/TalismanTotemDeathscape",
-            "Metadata/Monsters/BeehiveBehemoth/BeehiveBehemothSwampDaemon",
-            "Metadata/Monsters/VaalWraith/VaalWraithChampionMinion",
-            
-            // Synthesis
-            "Metadata/Monsters/LeagueSynthesis/SynthesisDroneBossTurret1",
-            "Metadata/Monsters/LeagueSynthesis/SynthesisDroneBossTurret2",
-            "Metadata/Monsters/LeagueSynthesis/SynthesisDroneBossTurret3",
-            "Metadata/Monsters/LeagueSynthesis/SynthesisDroneBossTurret4",
-            "Metadata/Monsters/LeagueSynthesis/SynthesisWalkerSpawned_",
-
-            //Ritual
-            "Metadata/Monsters/LeagueRitual/FireMeteorDaemon",
-            "Metadata/Monsters/LeagueRitual/GenericSpeedDaemon",
-            "Metadata/Monsters/LeagueRitual/ColdRotatingBeamDaemon",
-            "Metadata/Monsters/LeagueRitual/ColdRotatingBeamDaemonUber",
-            "Metadata/Monsters/LeagueRitual/GenericEnergyShieldDaemon",
-            "Metadata/Monsters/LeagueRitual/GenericMassiveDaemon",
-            "Metadata/Monsters/LeagueRitual/ChaosGreenVinesDaemon_",
-            "Metadata/Monsters/LeagueRitual/ChaosSoulrendPortalDaemon",
-            "Metadata/Monsters/LeagueRitual/VaalAtziriDaemon",
-            "Metadata/Monsters/LeagueRitual/LightningPylonDaemon",
-
-            // Bestiary
-            "Metadata/Monsters/LeagueBestiary/RootSpiderBestiaryAmbush",
-            "Metadata/Monsters/LeagueBestiary/BlackScorpionBestiaryBurrowTornado",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonCorpseEruption",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonSandLeaperExplode1",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonStampede1",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonGraspingPincers1",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonPouncingShade1",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonPouncingShadeQuickHit",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonFire1",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonVultureBomb1",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonVultureBombCast1",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonParasiticSquid1",
-            "Metadata/Monsters/LeagueBestiary/ModDaemonBloodRaven1",
-            "Metadata/Monsters/LeagueBestiary/SandLeaperBestiaryClone",
-            "Metadata/Monsters/LeagueBestiary/SpiderPlagueBestiaryExplode",
-            "Metadata/Monsters/LeagueBestiary/ParasiticSquidBestiaryClone",
-            "Metadata/Monsters/LeagueBestiary/HellionBestiaryClone",
-            "Metadata/Monsters/LeagueBestiary/BestiarySpiderCocoon",
-
-            // Ritual
-            "Metadata/Monsters/LeagueRitual/GoldenCoinDaemon",
-            "Metadata/Monsters/LeagueRitual/GenericLifeDaemon",
-            "Metadata/Monsters/LeagueRitual/GenericChargesDaemon",
-        };
+        private string IGNORE_FILE { get; } = Path.Combine("config", "ignored_entities.txt");
+        private List<string> IgnoredEntities { get; set; }
 
         private IngameUIElements ingameUI;
         private CachedValue<bool> ingameUICheckVisible;
@@ -197,53 +63,14 @@ namespace HealthBars
 
             return true;
         }
-        private void CreateIgnoreFile()
-        {
-            var path = $"{DirectoryFullName}\\{IGNORE_FILE}";
-            
-            var defaultConfig =
-            #region default Config
-                "#default ignores\n" +
-                "Metadata/Monsters/Daemon/SilverPoolChillDaemon\n" +
-                "Metadata/Monsters/Daemon\n" +
-                "Metadata/Monsters/Frog/FrogGod/SilverOrb\n" +
-                "Metadata/Monsters/Frog/FrogGod/SilverPool\n" +
-                "Metadata/Monsters/Labyrinth/GoddessOfJusticeMapBoss@7\n" +
-                "Metadata/Monsters/Labyrinth/GoddessOfJustice@\n" +
-                "Metadata/Monsters/LeagueBetrayal/MasterNinjaCop\n" +
-                "#Delirium Ignores\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonEyes1\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonEyes2\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonEyes3\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonSpikes\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonSpikes2\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonSpikes3\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonPimple1\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonPimple2\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonPimple3\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonGoatFillet1Vanish\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonGoatFillet2Vanish\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonGoatRhoa1Vanish\n" +
-                "Metadata/Monsters/LeagueAffliction/DoodadDaemons/DoodadDaemonGoatRhoa2Vanish\n" +
-                "Metadata/Monsters/InvisibleFire/InvisibleFireAfflictionCorpseDegen\n" +
-                "Metadata/Monsters/InvisibleFire/InvisibleFireAfflictionDemonColdDegenUnique\n";
-            #endregion
-            if (File.Exists(path)) return;
-            using (var streamWriter = new StreamWriter(path, true))
-            {
-                streamWriter.Write(defaultConfig);
-                streamWriter.Close();
-            }
-        }
+
         private void ReadIgnoreFile()
         {
-            var path = $"{DirectoryFullName}\\{IGNORE_FILE}";
-            if (File.Exists(path)) 
-            {
-                var text = File.ReadAllLines(path).Where(line => !string.IsNullOrWhiteSpace(line) && !line.StartsWith("#")).ToList();
-                IgnoredSum = Ignored.Concat(text).ToList();
-            } else 
-                CreateIgnoreFile();
+            var path = Path.Combine(DirectoryFullName, IGNORE_FILE);
+            if (File.Exists(path))
+                IgnoredEntities = File.ReadAllLines(path).Where(line => !string.IsNullOrWhiteSpace(line) && !line.StartsWith("#")).ToList();
+            else
+                LogError($"Ignored entities file does not exist. Path: {path}");
         }
 
         public override void AreaChange(AreaInstance area)
@@ -436,19 +263,19 @@ namespace HealthBars
 
         private void ShowNumbersInHealthbar(HealthBar bar)
         {
-            if (!bar.Settings.ShowHealthText && !bar.Settings.ShowEnergyShieldText) return;
+            if (!bar.Settings.ShowHPText && !bar.Settings.ShowESText) return;
 
             string healthBarText = "";
-            if (bar.Settings.ShowEnergyShieldText && bar.Life.CurES > 0)
+            if (bar.Settings.ShowESText && bar.Life.CurES > 0)
             {
                 healthBarText = $"{bar.Life.CurES:N0}";
-                if (bar.Settings.ShowMaxEnergyShieldText)
+                if (bar.Settings.ShowMaxESText)
                     healthBarText += $"/{bar.Life.MaxES:N0}";
             } 
-            else if (bar.Settings.ShowHealthText)
+            else if (bar.Settings.ShowHPText)
             {
                 healthBarText = $"{bar.Life.CurHP:N0}";
-                if (bar.Settings.ShowMaxHealthText)
+                if (bar.Settings.ShowMaxHPText)
                     healthBarText += $"/{bar.Life.MaxHP:N0}";
             }
 
@@ -460,16 +287,16 @@ namespace HealthBars
 
         private void ShowPercents(HealthBar bar)
         {
-            if (!bar.Settings.ShowHealthPercents && !bar.Settings.ShowEnergyShieldPercents) return;
+            if (!bar.Settings.ShowHPPercents && !bar.Settings.ShowESPercents) return;
 
             float percents = 0;
-            if (bar.Settings.ShowHealthPercents)
-            {
-                percents = bar.Life.HPPercentage;
-            }
-            else if (bar.Settings.ShowEnergyShieldPercents)
+            if (bar.Settings.ShowESPercents && bar.Life.CurES > 0)
             {
                 percents = bar.Life.ESPercentage;
+            }
+            else if (bar.Settings.ShowHPPercents)
+            {
+                percents = bar.Life.HPPercentage;
             }
 
             Graphics.DrawText(FloatToPercentString(percents),
@@ -489,7 +316,7 @@ namespace HealthBars
                 || Entity.Type == EntityType.Daemon) return;
 
             if (Entity.HasComponent<Life>() && Entity.GetComponent<Life>() != null && !Entity.IsAlive) return;
-            if (IgnoredSum.Any(x => Entity.Path.StartsWith(x))) return;
+            if (IgnoredEntities.Any(x => Entity.Path.StartsWith(x))) return;
             if (Entity.Path.StartsWith("Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskBurrowingViper") && (Entity.Rarity != MonsterRarity.Unique)) return;
             Entity.SetHudComponent(new HealthBar(Entity, Settings));
         }
