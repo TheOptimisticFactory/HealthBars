@@ -293,7 +293,7 @@ namespace HealthBars
 
         private void ShowPercents(HealthBar bar)
         {
-            if (!bar.Settings.ShowHPPercents && !bar.Settings.ShowESPercents) return;
+            if (!bar.Settings.ShowHPPercents && !bar.Settings.ShowESPercents && !bar.Settings.ShowEffectiveHitPointsPercent) return;
 
             float percents = 0;
             if (bar.Settings.ShowESPercents && bar.Life.CurES > 0)
@@ -303,6 +303,9 @@ namespace HealthBars
             else if (bar.Settings.ShowHPPercents)
             {
                 percents = bar.Life.HPPercentage;
+            }
+            else if (bar.Settings.ShowEffectiveHitPointsPercent) {
+                percents = bar.EffectiveHitPointsPercent;
             }
 
             Graphics.DrawText(FloatToPercentString(percents),

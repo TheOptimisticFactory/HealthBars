@@ -102,6 +102,9 @@ namespace HealthBars
             }
         }
         public float HpPercent => Life != null ? Life.HPPercentage : 0;
+        public float EffectiveHitPointsPercent => Life != null 
+            ? (Life.CurES + Life.CurHP) / (Life.MaxES + Life.MaxHP)
+            : 0;
         public float Distance => _distance.Value;
         public Life Life => Entity.HasComponent<Life>() ? Entity.GetComponent<Life>() : null;
         public Entity Entity { get; }
