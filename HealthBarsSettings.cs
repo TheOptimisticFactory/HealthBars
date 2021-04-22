@@ -86,8 +86,10 @@ namespace HealthBars
             ShowESPercents = new ToggleNode(false);
             ShowHPText = new ToggleNode(false);
             ShowESText = new ToggleNode(false);
+            ShowEffectiveHitPointsText = new ToggleNode(false);
             ShowMaxHPText = new ToggleNode(false);
             ShowMaxESText = new ToggleNode(false);
+            ShowMaxEffectiveHitPointsText = new ToggleNode(false);
             ShowFloatingCombatDamage = new ToggleNode(false);
             FloatingCombatTextSize = new RangeNode<int>(15, 10, 30);
             FloatingCombatDamageColor = SharpDX.Color.Yellow;
@@ -106,6 +108,8 @@ namespace HealthBars
             ShowESText.Value = showText;
             ShowMaxHPText.Value = showMaxText;
             ShowMaxESText.Value = showMaxText;
+            ShowEffectiveHitPointsText.Value = showText;
+            ShowMaxEffectiveHitPointsText.Value = showMaxText;
             Width = new RangeNode<float>(width, 20, 250);
             Height = new RangeNode<float>(height, 3, 150);
         }
@@ -125,6 +129,8 @@ namespace HealthBars
         public ToggleNode ShowESText { get; set; }
         public ToggleNode ShowMaxHPText { get; set; }
         public ToggleNode ShowMaxESText { get; set; }
+        public ToggleNode ShowEffectiveHitPointsText { get; set; }
+        public ToggleNode ShowMaxEffectiveHitPointsText { get; set; }
         public RangeNode<int> TextSize { get; set; }
         [Menu("Floating Combat Text")]
         public ToggleNode ShowFloatingCombatDamage { get; set; }

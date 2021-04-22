@@ -263,7 +263,7 @@ namespace HealthBars
 
         private void ShowNumbersInHealthbar(HealthBar bar)
         {
-            if (!bar.Settings.ShowHPText && !bar.Settings.ShowESText) return;
+            if (!bar.Settings.ShowHPText && !bar.Settings.ShowESText && !bar.Settings.ShowEffectiveHitPointsText) return;
 
             string healthBarText = "";
             if (bar.Settings.ShowESText && bar.Life.CurES > 0)
@@ -277,6 +277,12 @@ namespace HealthBars
                 healthBarText = $"{bar.Life.CurHP:N0}";
                 if (bar.Settings.ShowMaxHPText)
                     healthBarText += $"/{bar.Life.MaxHP:N0}";
+            }
+            else if (bar.Settings.ShowEffectiveHitPointsText) 
+            {
+                healthBarText = $"{(bar.Life.CurHP + bar.Life.CurES):N0}";
+                if (bar.Settings.ShowMaxEffectiveHitPointsText)
+                    healthBarText += $"/{(bar.Life.MaxHP + bar.Life.MaxES):N0}";
             }
 
             Graphics.DrawText(healthBarText,
