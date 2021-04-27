@@ -276,7 +276,7 @@ namespace HealthBars
             else if (bar.Settings.ShowEnergyShieldCurrentValue && bar.Life.CurES > 0)
             {
                 healthBarText = $"{bar.Life.CurES:N0}";
-                if (bar.Settings.ShowEnergyMaximumValue)
+                if (bar.Settings.ShowEnergyShieldMaximumValue)
                     healthBarText += $"/{bar.Life.MaxES:N0}";
             }
             else if (bar.Settings.ShowHealthCurrentValue)

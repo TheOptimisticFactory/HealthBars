@@ -27,7 +27,7 @@ namespace HealthBars
 
         [Menu("Show in town")]
         public ToggleNode ShowInTown { get; set; }
-        [Menu("Show energy shield", "")]
+        [Menu("Show Energy Shield")]
         public ToggleNode ShowES { get; set; }
         [Menu("Show enemies", 0, 3)]
         public ToggleNode ShowEnemies { get; set; }
@@ -82,15 +82,19 @@ namespace HealthBars
             PercentTextColor = 0xffffffff;
             HealthTextColor = 0xffffffff;
             HealthTextColorUnder10Percent = 0xffff00ff;
+
             ShowHealthPercentages = new ToggleNode(false);
             ShowEnergyShieldPercentages = new ToggleNode(false);
+            ShowEffectiveHealthPointsPercentages = new ToggleNode(false);
+
             ShowHealthCurrentValue = new ToggleNode(false);
             ShowEnergyShieldCurrentValue = new ToggleNode(false);
-            ShowHealthMaximumValue = new ToggleNode(false);
-            ShowEnergyMaximumValue = new ToggleNode(false);
-            ShowEffectiveHealthPointsPercentages = new ToggleNode(false);
             ShowEffectiveHealthPointsCurrentValue = new ToggleNode(false);
+
+            ShowHealthMaximumValue = new ToggleNode(false);
+            ShowEnergyShieldMaximumValue = new ToggleNode(false);
             ShowEffectiveHealthPointsMaximumValue = new ToggleNode(false);
+
             ShowFloatingCombatDamage = new ToggleNode(false);
             FloatingCombatTextSize = new RangeNode<int>(15, 10, 30);
             FloatingCombatDamageColor = SharpDX.Color.Yellow;
@@ -117,7 +121,7 @@ namespace HealthBars
             ShowEnergyShieldCurrentValue.Value = showText;
             ShowEffectiveHealthPointsCurrentValue.Value = showText;
             ShowHealthMaximumValue.Value = showMaxText;
-            ShowEnergyMaximumValue.Value = showMaxText;
+            ShowEnergyShieldMaximumValue.Value = showMaxText;
             ShowEffectiveHealthPointsMaximumValue.Value = showMaxText;
             Width = new RangeNode<float>(width, 20, 250);
             Height = new RangeNode<float>(height, 3, 150);
@@ -135,16 +139,17 @@ namespace HealthBars
         [Menu("Health Text Color Under 10 Percent")]
         public ColorNode HealthTextColorUnder10Percent { get; set; }
         #region Percentages
-        [Menu("Show Effective Health Points Percentages",
+        [Menu("Show Effective Health Points percentages",
             "Effective Health Points means combined Healths and Energy Shields values." +
             "\n" +
-            "\nThis setting have priority above \"Show Energy Shield Percentages\":" +
+            "\nThis setting have priority above \"Show Energy Shield percentages\":" +
             "\n\tif both settings checked you'll see EHP percentages.")]
         public ToggleNode ShowEffectiveHealthPointsPercentages { get; set; }
-        [Menu("Show Energy Shield Percentages",
-            "This setting have priority above \"Show Health Percentages\":" +
+        [Menu("Show Energy Shield percentages",
+            "This setting have priority above \"Show Health percentages\":" +
             "\n\tif both settings checked you'll see ES percentages while enemy's ES still active.")]
         public ToggleNode ShowEnergyShieldPercentages { get; set; }
+        [Menu("Show Health percentages")]
         public ToggleNode ShowHealthPercentages { get; set; }
         #endregion
         #region Current Values
@@ -171,7 +176,7 @@ namespace HealthBars
         [Menu("Show Energy Shield maximum value",
             "This setting have priority above \"Show Health maximum value\":" +
             "\n\tif both settings checked you'll see ES maximum value while enemy's ES still active.")]
-        public ToggleNode ShowEnergyMaximumValue { get; set; }
+        public ToggleNode ShowEnergyShieldMaximumValue { get; set; }
         [Menu("Show Health maximum value")]
         public ToggleNode ShowHealthMaximumValue { get; set; }
         #endregion
