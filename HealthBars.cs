@@ -242,12 +242,12 @@ namespace HealthBars
         {
             if (Settings.ImGuiRender)
             {
-                Graphics.DrawBox(bar.BackGround, bar.Settings.BackGround);
+                Graphics.DrawBox(bar.BackGround, bar.Settings.Background);
                 Graphics.DrawBox(new RectangleF(bar.BackGround.X, bar.BackGround.Y, bar.HpWidth, bar.BackGround.Height), bar.Color);
             }
             else
             {
-                Graphics.DrawImage("healthbar.png", bar.BackGround, bar.Settings.BackGround);
+                Graphics.DrawImage("healthbar.png", bar.BackGround, bar.Settings.Background);
 
                 Graphics.DrawImage("healthbar.png", new RectangleF(bar.BackGround.X, bar.BackGround.Y, bar.HpWidth, bar.BackGround.Height),
                     bar.Color);
@@ -263,26 +263,27 @@ namespace HealthBars
 
         private void ShowNumbersInHealthbar(HealthBar bar)
         {
-            if (!bar.Settings.ShowHPText && !bar.Settings.ShowESText && !bar.Settings.ShowEffectiveHitPointsText) return;
+            if (!bar.Settings.ShowHealthCurrentValue && !bar.Settings.ShowEnergyShieldCurrentValue && !bar.Settings.ShowEffectiveHealthPointsCurrentValue) return;
 
+            // Do not forget change description on settings if order was changed
             string healthBarText = "";
-            if (bar.Settings.ShowESText && bar.Life.CurES > 0)
-            {
-                healthBarText = $"{bar.Life.CurES:N0}";
-                if (bar.Settings.ShowMaxESText)
-                    healthBarText += $"/{bar.Life.MaxES:N0}";
-            } 
-            else if (bar.Settings.ShowHPText)
-            {
-                healthBarText = $"{bar.Life.CurHP:N0}";
-                if (bar.Settings.ShowMaxHPText)
-                    healthBarText += $"/{bar.Life.MaxHP:N0}";
-            }
-            else if (bar.Settings.ShowEffectiveHitPointsText) 
+            if (bar.Settings.ShowEffectiveHealthPointsCurrentValue)
             {
                 healthBarText = $"{(bar.Life.CurHP + bar.Life.CurES):N0}";
-                if (bar.Settings.ShowMaxEffectiveHitPointsText)
+                if (bar.Settings.ShowEffectiveHealthPointsMaximumValue)
                     healthBarText += $"/{(bar.Life.MaxHP + bar.Life.MaxES):N0}";
+            } 
+            else if (bar.Settings.ShowEnergyShieldCurrentValue && bar.Life.CurES > 0)
+            {
+                healthBarText = $"{bar.Life.CurES:N0}";
+                if (bar.Settings.ShowEnergyMaximumValue)
+                    healthBarText += $"/{bar.Life.MaxES:N0}";
+            }
+            else if (bar.Settings.ShowHealthCurrentValue)
+            {
+                healthBarText = $"{bar.Life.CurHP:N0}";
+                if (bar.Settings.ShowHealthMaximumValue)
+                    healthBarText += $"/{bar.Life.MaxHP:N0}";
             }
 
             Graphics.DrawText(healthBarText,
@@ -293,19 +294,21 @@ namespace HealthBars
 
         private void ShowPercents(HealthBar bar)
         {
-            if (!bar.Settings.ShowHPPercents && !bar.Settings.ShowESPercents && !bar.Settings.ShowEffectiveHitPointsPercent) return;
+            if (!bar.Settings.ShowHealthPercentages && !bar.Settings.ShowEnergyShieldPercentages && !bar.Settings.ShowEffectiveHealthPointsPercentages) return;
 
+            // Do not forget change description on settings if order was changed
             float percents = 0;
-            if (bar.Settings.ShowESPercents && bar.Life.CurES > 0)
+            if (bar.Settings.ShowEffectiveHealthPointsPercentages)
+            {
+                percents = bar.EffectiveHitPointsPercent;
+            }
+            else if (bar.Settings.ShowEnergyShieldPercentages && bar.Life.CurES > 0)
             {
                 percents = bar.Life.ESPercentage;
             }
-            else if (bar.Settings.ShowHPPercents)
+            else if (bar.Settings.ShowHealthPercentages)
             {
                 percents = bar.Life.HPPercentage;
-            }
-            else if (bar.Settings.ShowEffectiveHitPointsPercent) {
-                percents = bar.EffectiveHitPointsPercent;
             }
 
             Graphics.DrawText(FloatToPercentString(percents),
