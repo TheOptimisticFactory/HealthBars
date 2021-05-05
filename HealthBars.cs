@@ -300,7 +300,9 @@ namespace HealthBars
             float percents = 0;
             if (bar.Settings.ShowEffectiveHealthPointsPercentages)
             {
-                percents = bar.EffectiveHitPointsPercent;
+                float curEHP = bar.Life.CurES + bar.Life.CurHP;
+                float maxEHP = bar.Life.MaxES + bar.Life.MaxHP;
+                percents = curEHP / maxEHP;
             }
             else if (bar.Settings.ShowEnergyShieldPercentages && bar.Life.CurES > 0)
             {

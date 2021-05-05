@@ -23,48 +23,38 @@ namespace HealthBars
             GlobalZ = new RangeNode<int>(-100, -300, 300);
             PlayerZ = new RangeNode<int>(-100, -300, 300);
             OffsetBars = new RangeNode<int>(0, -300, 300);
+            HideOverUi = new ToggleNode(true);
+            ImGuiRender = new ToggleNode(false);
+            LimitDrawDistance = new RangeNode<int>(133, 0, 1000);
+            Rounding = new RangeNode<float>(0, 0, 64);
+            MultiThreading = new ToggleNode(false);
+            MultiThreadingCountEntities = new RangeNode<int>(10, 1, 200);
+            ShowMinionOnlyBelowHp = new RangeNode<int>(50, 1, 100);
+            SelfHealthBarShow = new ToggleNode(true);
         }
 
-        [Menu("Show in town")]
-        public ToggleNode ShowInTown { get; set; }
-        [Menu("Show Energy Shield")]
-        public ToggleNode ShowES { get; set; }
-        [Menu("Show enemies", 0, 3)]
-        public ToggleNode ShowEnemies { get; set; }
-        [Menu("Players", 1)]
-        public UnitSettings Players { get; set; }
-        [Menu("Minions", 2)]
-        public UnitSettings Minions { get; set; }
-        [Menu("Normal enemy", 3)]
-        public UnitSettings NormalEnemy { get; set; }
-        [Menu("Magic enemy", 4)]
-        public UnitSettings MagicEnemy { get; set; }
-        [Menu("Rare enemy", 5)]
-        public UnitSettings RareEnemy { get; set; }
-        [Menu("Unique enemy", 6)]
-        public UnitSettings UniqueEnemy { get; set; }
-        [Menu("Show debuff panel")]
-        public ToggleNode ShowDebuffPanel { get; set; }
-        [Menu("Size debuff icon")]
-        public RangeNode<int> DebuffPanelIconSize { get; set; }
-        [Menu("Z")]
-        public RangeNode<int> GlobalZ { get; set; }
-        [Menu("Player Z")]
-        public RangeNode<int> PlayerZ { get; set; }
-        [Menu("PlayerBar Y offset")]
-        public RangeNode<int> OffsetBars { get; set; }
-        [Menu("Hide over UI")]
-        public ToggleNode HideOverUi { get; set; } = new ToggleNode(true);
-        [Menu("Using ImGui for render")]
-        public ToggleNode ImGuiRender { get; set; } = new ToggleNode(false);
-        public RangeNode<int> LimitDrawDistance { get; set; } = new RangeNode<int>(133, 0, 1000);
-        [Menu("Rounding")]
-        
-        public RangeNode<float> Rounding { get; set; } = new RangeNode<float>(0, 0, 64);
-        public ToggleNode MultiThreading { get; set; } = new ToggleNode(false);
-        public RangeNode<int> MultiThreadingCountEntities { get; set; } = new RangeNode<int>(10, 1, 200);
-        public RangeNode<int> ShowMinionOnlyBelowHp { get; set; } = new RangeNode<int>(50, 1, 100);
-        public ToggleNode SelfHealthBarShow { get; set; } = new ToggleNode(true);
+        [Menu("Show in town")] public ToggleNode ShowInTown { get; set; }
+        [Menu("Show Energy Shield")] public ToggleNode ShowES { get; set; }
+        [Menu("Show enemies", 0, 3)] public ToggleNode ShowEnemies { get; set; }
+        [Menu("Players", 1)] public UnitSettings Players { get; set; }
+        [Menu("Minions", 2)] public UnitSettings Minions { get; set; }
+        [Menu("Normal enemy", 3)] public UnitSettings NormalEnemy { get; set; }
+        [Menu("Magic enemy", 4)] public UnitSettings MagicEnemy { get; set; }
+        [Menu("Rare enemy", 5)] public UnitSettings RareEnemy { get; set; }
+        [Menu("Unique enemy", 6)] public UnitSettings UniqueEnemy { get; set; }
+        [Menu("Show debuff panel")] public ToggleNode ShowDebuffPanel { get; set; }
+        [Menu("Size debuff icon")] public RangeNode<int> DebuffPanelIconSize { get; set; }
+        [Menu("Z")] public RangeNode<int> GlobalZ { get; set; }
+        [Menu("Player Z")] public RangeNode<int> PlayerZ { get; set; }
+        [Menu("PlayerBar Y offset")] public RangeNode<int> OffsetBars { get; set; }
+        [Menu("Hide over UI")] public ToggleNode HideOverUi { get; set; }
+        [Menu("Using ImGui for render")] public ToggleNode ImGuiRender { get; set; }
+        public RangeNode<int> LimitDrawDistance { get; set; }
+        [Menu("Rounding")] public RangeNode<float> Rounding { get; set; }
+        public ToggleNode MultiThreading { get; set; }
+        public RangeNode<int> MultiThreadingCountEntities { get; set; }
+        public RangeNode<int> ShowMinionOnlyBelowHp { get; set; }
+        public ToggleNode SelfHealthBarShow { get; set; }
         public ToggleNode Enable { get; set; }
         
     }
