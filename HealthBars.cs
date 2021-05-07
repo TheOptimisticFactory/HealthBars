@@ -9,6 +9,7 @@ using ExileCore.PoEMemory.Components;
 using ExileCore.PoEMemory.MemoryObjects;
 using ExileCore.Shared.Cache;
 using ExileCore.Shared.Enums;
+using ImGuiNET;
 using SharpDX;
 
 namespace HealthBars
@@ -28,6 +29,7 @@ namespace HealthBars
         private HealthBar PlayerBar;
         private RectangleF windowRectangle;
         private Size2F windowSize;
+        public static HealthBars Plugin;
 
         public override void OnLoad()
         {
@@ -60,6 +62,9 @@ namespace HealthBars
                        ingameUI.CraftBench.IsVisibleLocal;
             }, 250);
             ReadIgnoreFile();
+
+            if (Plugin == null)
+                Plugin = this;
 
             return true;
         }
@@ -332,6 +337,12 @@ namespace HealthBars
             if (Entity.HasComponent<Life>() && Entity.GetComponent<Life>() != null && !Entity.IsAlive) return;
             if (IgnoredEntities.Any(x => Entity.Path.StartsWith(x))) return;
             Entity.SetHudComponent(new HealthBar(Entity, Settings));
+        }
+
+        public override void DrawSettings()
+        {
+            if (Settings.Enable) ImGuiDrawSettings.DrawImGuiSettings();
+            else ImGui.Text("Enable HealthBars plugin to display settings.");
         }
     }
 }
