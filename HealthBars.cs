@@ -240,7 +240,7 @@ namespace HealthBars
         {
             CanTick = true;
 
-            if (ingameUICheckVisible.Value)
+            if (ingameUICheckVisible?.Value ?? false)
             {
                 CanTick = false;
                 return;
