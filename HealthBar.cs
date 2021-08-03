@@ -67,22 +67,13 @@ namespace HealthBars
             else
                 CanNotDie = (bool)_canNotDie;
 
-            if (entity.HasComponent<ObjectMagicProperties>())
+            var mods = entity?.GetComponent<ObjectMagicProperties>()?.Mods;
+            if (mods != null && mods.Contains("MonsterConvertsOnDeath_")) 
             {
-                var magicProperties = entity.GetComponent<ObjectMagicProperties>();
-
-                if (magicProperties != null)
+                OnHostileChange = () =>
                 {
-                    var mods = magicProperties.Mods;
-
-                    if (mods != null && mods.Contains("MonsterConvertsOnDeath_"))
-                    {
-                        OnHostileChange = () =>
-                        {
-                            if (_init) Update(Entity, settings);
-                        };
-                    }
-                }
+                    if (_init) Update(Entity, settings);
+                };
             }
         }
 
