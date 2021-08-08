@@ -46,6 +46,7 @@ Metadata/Monsters/LeagueBetrayal/BetrayalUpgrades/BetrayalDaemonCorpseConsume
 Metadata/Monsters/LegionLeague/LegionVaalGeneralProjectileDaemon
 Metadata/Monsters/LegionLeague/LegionSergeantStampedeDaemon
 Metadata/Monsters/LegionLeague/LegionSandTornadoDaemon
+Metadata/Monsters/LegionLeague/LegionVaalGeneralMoveDaemonQuad
 
 # Random Ignores
 Metadata/Monsters/InvisibleFire/InvisibleSandstorm_
@@ -60,6 +61,8 @@ Metadata/Monsters/InvisibleFire/InvisibleFireDoedreSewers
 Metadata/Monsters/InvisibleFire/InvisibleFireDelveFlameTornadoSpiked
 Metadata/Monsters/InvisibleFire/InvisibleHolyCannon
 Metadata/Monsters/InvisibleFire/DelveVaalBossInvisibleLight
+Metadata/Monsters/InvisibleFire/InvisibleChaosstorm
+Metadata/Monsters/InvisibleFire/InvisibleKitavaCannon
 
 Metadata/Monsters/InvisibleCurse/InvisibleFrostbiteStationary
 Metadata/Monsters/InvisibleCurse/InvisibleConductivityStationary
@@ -126,3 +129,4 @@ Metadata/Monsters/LeagueBestiary/SpiderPlagueBestiaryExplode
 Metadata/Monsters/LeagueBestiary/ParasiticSquidBestiaryClone
 Metadata/Monsters/LeagueBestiary/HellionBestiaryClone
 Metadata/Monsters/LeagueBestiary/BestiarySpiderCocoon
+Metadata/Monsters/LeagueBestiary/GemFrogBestiaryClone
