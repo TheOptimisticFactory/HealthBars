@@ -80,7 +80,7 @@ namespace HealthBars
             if (File.Exists(path))
                 IgnoredEntities = File.ReadAllLines(path).Where(line => !string.IsNullOrWhiteSpace(line) && !line.StartsWith("#")).ToList();
             else
-                LogError($"Ignored entities file does not exist. Path: {path}");
+                LogError($"{Name}: Ignored entities file does not exist. Path: {path}");
         }
 
         public override void AreaChange(AreaInstance area)
@@ -340,7 +340,9 @@ namespace HealthBars
                 || Entity.Type == EntityType.Daemon) return;
 
             if (Entity.HasComponent<Life>() && Entity.GetComponent<Life>() != null && !Entity.IsAlive) return;
-            if (IgnoredEntities.Any(x => Entity.Path.StartsWith(x))) return;
+            if (IgnoredEntities == null) LogMessage($"{Name}: Ignored entities file does not exist. " +
+                $"No one entity ignored. Place file to {Path.Combine(DirectoryFullName, IGNORE_FILE)}");
+            else if (IgnoredEntities.Any(x => Entity.Path.StartsWith(x))) return;
             Entity.SetHudComponent(new HealthBar(Entity, Settings));
         }
 
