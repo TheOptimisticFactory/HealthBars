@@ -20,7 +20,7 @@ namespace HealthBars
         private bool CanTick = true;
         private readonly List<Element> ElementForSkip = new List<Element>();
         private string IGNORE_FILE { get; } = Path.Combine("config", "ignored_entities.txt");
-        private List<string> IgnoredEntities { get; set; }
+        private HashSet<string> IgnoredEntities { get; set; }
 
         private IngameUIElements ingameUI;
         private CachedValue<bool> ingameUICheckVisible;
@@ -78,7 +78,7 @@ namespace HealthBars
         {
             var path = Path.Combine(DirectoryFullName, IGNORE_FILE);
             if (File.Exists(path))
-                IgnoredEntities = File.ReadAllLines(path).Where(line => !string.IsNullOrWhiteSpace(line) && !line.StartsWith("#")).ToList();
+                IgnoredEntities = File.ReadAllLines(path).Where(line => !string.IsNullOrWhiteSpace(line) && !line.StartsWith("#")).ToHashSet();
             else
                 LogError($"{Name}: Ignored entities file does not exist. Path: {path}");
         }
@@ -342,7 +342,7 @@ namespace HealthBars
             if (Entity.HasComponent<Life>() && Entity.GetComponent<Life>() != null && !Entity.IsAlive) return;
             if (IgnoredEntities == null) LogMessage($"{Name}: Ignored entities file does not exist. " +
                 $"No one entity ignored. Place file to {Path.Combine(DirectoryFullName, IGNORE_FILE)}");
-            else if (IgnoredEntities.Any(x => Entity.Path.StartsWith(x))) return;
+            else if (IgnoredEntities.Any(x => Entity.Path.Equals(x))) return;
             Entity.SetHudComponent(new HealthBar(Entity, Settings));
         }
 
